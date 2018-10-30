@@ -37,7 +37,8 @@ public:
 
     bool Add(const std::shared_ptr<TimerTask>& pTask);
 
-    void Run();
+    void AdvanceClock(const long current);
+
 
 private:
     std::mutex mutex_;

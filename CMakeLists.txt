@@ -11,7 +11,6 @@ find_package(Gtest)
 find_package(Glog)
 find_package(Gflags)
 
-include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR})
 
 include_directories(src)
@@ -22,5 +21,6 @@ file(GLOB SOURCES
         src/*.h
         )
 add_library(common_lib ${SOURCES})
+target_link_libraries(common_lib Glog)
 
 add_subdirectory(test)

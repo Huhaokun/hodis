@@ -30,10 +30,4 @@ bool TimeWheel::Add(const std::shared_ptr<TimerTask>& pTask) {
     return true;
 }
 
-void TimeWheel::Run() {
-    while(true) {
-        std::this_thread::sleep_for(std::chrono::nanoseconds(wheelIntervalMicroSeconds_ * 1000));
 
-        cursor_++;
-    }
-}
