@@ -12,6 +12,7 @@
 #include <mutex>
 #include <map>
 #include <atomic>
+#include <thread>
 #include <glog/logging.h>
 
 struct TimerTask {
@@ -37,20 +38,29 @@ class TimeWheel {
 public:
     TimeWheel(size_t wheelSize, long wheelIntervalMicroSeconds);
 
+    ~TimeWheel();
+
     // add a timer task to the wheel
     // @return true if add success
     bool Add(const std::shared_ptr<TimerTask>& pTask);
 
-    // set the clock to given time, it will trigger the expired timer task
-    void AdvanceClock(const long current);
+    void Start();
 
+    void Stop();
 
 private:
+    void Loop();
+
+
     std::mutex mutex_;
     std::vector<std::list<std::shared_ptr<TimerTask>>> slots_;
-    long wheelIntervalMicroSeconds_;
     size_t wheelSize_;
+    long wheelIntervalMicroSeconds_;
+    std::atomic_bool isRunning_;
     size_t cursor_ = 0;
+
+    std::thread loopThread_;
+
 };
 
 
