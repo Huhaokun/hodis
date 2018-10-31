@@ -26,17 +26,22 @@ public:
 
     long expiredTime;
     std::function<void()> onTrigger;
+
 private:
     std::atomic<bool> isCancel_;
 
 };
+
 // a simple single layer time wheel implement
 class TimeWheel {
 public:
     TimeWheel(size_t wheelSize, long wheelIntervalMicroSeconds);
 
+    // add a timer task to the wheel
+    // @return true if add success
     bool Add(const std::shared_ptr<TimerTask>& pTask);
 
+    // set the clock to given time, it will trigger the expired timer task
     void AdvanceClock(const long current);
 
 

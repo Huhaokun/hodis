@@ -2,7 +2,6 @@
 // Created by 胡昊坤 on 2018/10/24.
 //
 
-#include <thread>
 #include "time_wheel.h"
 
 using namespace std;
@@ -28,6 +27,11 @@ bool TimeWheel::Add(const std::shared_ptr<TimerTask>& pTask) {
     assert(slotNum < slots_.size());
     slots_[slotNum].push_back(pTask);
     return true;
+}
+
+
+void TimeWheel::AdvanceClock(const long current) {
+    
 }
 
 
